@@ -2,8 +2,23 @@
   "name": "example-app",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/example-app/src",
-  "projectType": "library",
+  "projectType": "application",
   "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/apps/example-app",
+        "main": "apps/example-app/src/app.ts",
+        "tsConfig": "apps/example-app/tsconfig.lib.json",
+        "assets": [
+          "apps/example-app/*.md"
+        ],
+        "updateBuildableProjectDepsInPackageJson": true
+      }
+    },
     "serve-vite": {
       "executor": "nx:run-commands",
       "options": {
