@@ -48,7 +48,8 @@
     "nx": "16.9.1",
     "typescript": "5.2.2",
     "vite": "4.4.11",
-    "vite-tsconfig-paths": "4.2.1"
+    "vite-tsconfig-paths": "4.2.1",
+    "rollup-plugin-visualizer" : "^5.9.2"
   },
   "reflection": "true",
   "pnpm": {

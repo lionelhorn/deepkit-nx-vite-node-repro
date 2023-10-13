@@ -3,7 +3,7 @@ import {App} from '@deepkit/app';
 import {FrameworkModule, onServerMainBootstrapDone} from '@deepkit/framework';
 import {LoggerInterface} from "@deepkit/logger";
 import {eventDispatcher} from "@deepkit/event";
-import {HttpControllerExample} from "./HttpControllerExample";
+import {HttpControllerExample} from "@lionelhorn/utils";
 
 class Bootstrap {
 	constructor(private logger: LoggerInterface) {

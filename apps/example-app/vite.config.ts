@@ -1,15 +1,20 @@
-import {defineConfig, splitVendorChunkPlugin} from 'vite';
+import {defineConfig, PluginOption, splitVendorChunkPlugin} from 'vite';
 import {deepkitType} from "@deepkit/vite";
 import {nxViteTsPaths} from "@nx/vite/plugins/nx-tsconfig-paths.plugin";
 import {resolve} from "node:path";
+import {visualizer} from "rollup-plugin-visualizer";
 
 export default defineConfig(({mode, ssrBuild}) => {
   console.log("vite.config.ts", mode, ssrBuild);
 
   return {
     build: {
+      // lib: {
+      //   entry: "./src/app.ts",
+      //   name : "bundle"
+      // },
       modulePreload: false,
-      watch: true,
+      // watch: true,
       minify: false,
       rollupOptions: {
         preserveEntrySignatures: "strict",
@@ -44,6 +49,7 @@ export default defineConfig(({mode, ssrBuild}) => {
       nxViteTsPaths(),
       // !ssrBuild && splitVendorChunkPlugin(),
       // !ssrBuild && liveReload({ delay: 500 }),
+      visualizer() as PluginOption,
     ],
   }
 });
