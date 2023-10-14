@@ -1,54 +1,85 @@
 import type {ExecutorContext} from '@nx/devkit';
-import {resolve, dirname} from "path";
-import {readJsonFile} from "@nx/devkit";
+import {resolve, dirname, relative} from "path";
+import {readJsonFile, writeJsonFile} from "@nx/devkit";
 import {glob} from "glob";
-import {delay} from "@lionelhorn/utils";
+import {getPackageJsonHelperModule} from "../../utils";
+import {PackagerExecutorSchema} from "./schema";
+import {mkdir, cp} from "node:fs/promises"
 
 // Cannot import esm only package as nx doesn't support ESM in local executors.
 // import {Package} from "package-json-helper";
 // See workaround example below for execa
 
 export default async function buildExecutor(
-	options: any,
+	options: PackagerExecutorSchema,
 	context: ExecutorContext
 ) {
+	// Prepare
+	const packageJsonHelper = await getPackageJsonHelperModule()
 	const repoRootPath = process.cwd()
 	const projectDistDir = options.outputPath;
-	const disPackageJsonPath = resolve(projectDistDir, "package.json");
-	const distPackage = readJsonFile(disPackageJsonPath);
-	const peerDeps = distPackage.peerDependencies;
-	const tarRelPath = resolve(repoRootPath, "dist/tars")
-	const allPackageJsonPathsFromDist = await glob('dist/**/package.json', {ignore: 'node_modules/**'})
-	const depsMaps = new Map<string, string>();
 
-	// Package all packages from /dist
-	for (const distPackagePath of allPackageJsonPathsFromDist) {
-		process.chdir(repoRootPath);
+	/**
+	 * Copy project to packaging dir
+	 */
+		// Make directory structure needed for packaging app
+	const projectPackagingDir = options.packagerOutputPath;
+	await mkdir(projectPackagingDir, {recursive: true})
 
-		const distPackage = readJsonFile(distPackagePath)
+	// Copy project to packaging dir
+	await cp(projectDistDir, projectPackagingDir, {recursive: true})
 
-		/**
-		 *  Find deps from current project and package it as tarball
-		 * 	for instance current project (like app) from executor has @scope/... dep (like @scope/utils)
-		 */
-		if (peerDeps.hasOwnProperty(distPackage.name)) {
-			const dir = dirname(distPackagePath);
-			process.chdir(dir);
+	// Get project package details
+	const projectDistPackagePath = resolve(projectDistDir, "package.json");
+	const projectPackage = new packageJsonHelper.Package(projectDistPackagePath);
+	await projectPackage.read();
 
-			// ESM import from NX executor bypass
-			// https://github.com/nrwl/nx/issues/15682#issuecomment-1700298264
-			const execa =
-				await (Function('return import("execa")')() as Promise<
-					typeof import('execa')
-				>);
+	// Get packaged package json
+	const projectPackagedPackagePath = resolve(projectPackagingDir, "package.json");
+	const projectPackagedPackageAsObj = await readJsonFile(projectPackagedPackagePath);
 
-			const args = [tarRelPath];
-			const {stdout: tarballPath} = await execa.$`pnpm pack --pack-destination ${args}`;
-			depsMaps.set(distPackage.name, tarballPath);
-		}
+	// Get root repo package json
+	const repoPackagePath = resolve("package.json");
+	const repoPackageAsObj = await readJsonFile(repoPackagePath);
+
+	/**
+	 * Copy deps of project
+	 */
+		// Get all packages in dist
+	const allPackageJsonPathsFromDist = await glob('dist/**/package.json', {ignore: ['node_modules/**', 'tars/**']})
+	const allPackages = new Map<string, { path: string, packageInfos: packageJsonHelper.Package }>();
+	for (const packagePath of allPackageJsonPathsFromDist) {
+		const p = new packageJsonHelper.Package(packagePath);
+		await p.read();
+		allPackages.set(p.name, {path: packagePath, packageInfos: p});
 	}
 
-	console.log("Deps and tarballs", Array.from(depsMaps));
+	// Copy peerdeps of project to packaging dir
+	for (const [peerDepName, dep] of projectPackage.peerDependencies) {
+		// like /packaged/deps/@lionelhorn/utils
+		const peerDepCopyDistDirPath = `${projectPackagingDir}/deps/${peerDepName}/`
+		await mkdir(peerDepCopyDistDirPath, {recursive: true})
+
+		const {path, packageInfos} = allPackages.get(peerDepName);
+		console.log(`Copying ${peerDepName} to ${peerDepCopyDistDirPath}`);
+
+		// like dist\packages\utils ==> packaged/apps/example-app/deps/@lionelhorn/utils
+		await cp(dirname(path), peerDepCopyDistDirPath, {recursive: true})
+
+		// Adjust project package.json to link to local copy of dep
+		console.log(projectPackagedPackageAsObj);
+		console.log(projectPackagedPackageAsObj.peerDependencies[peerDepName]);
+		projectPackagedPackageAsObj.peerDependencies[peerDepName] = `file://.\\deps\\${peerDepName}`;
+	}
+
+	// Add patches from repo that may also be needed for packaged app
+	const patches = repoPackageAsObj?.pnpm?.patchedDependencies;
+	projectPackagedPackageAsObj["pnpm"] =  repoPackageAsObj?.pnpm;
+	await mkdir( resolve(projectPackagingDir, "patches"), {recursive: true})
+	await cp(resolve(repoRootPath, "patches"), resolve(projectPackagingDir, "patches"), {recursive: true})
+
+	// Write project package with locally linked deps
+	writeJsonFile(projectPackagedPackagePath, projectPackagedPackageAsObj);
 
 	return {
 		success: true,

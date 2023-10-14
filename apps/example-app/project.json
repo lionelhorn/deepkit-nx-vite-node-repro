@@ -25,7 +25,8 @@
         "{options.outputPath}"
       ],
       "options": {
-        "outputPath": "dist/apps/example-app"
+        "outputPath": "dist/apps/example-app",
+        "packagerOutputPath": "packaged/apps/example-app"
       },
       "dependsOn": ["build"]
     },
@@ -37,7 +38,7 @@
       "options": {
         "outputPath": "dist/apps/example-app"
       },
-      "dependsOn": ["build"]
+      "dependsOn": ["package"]
     },
     "serve-vite": {
       "executor": "nx:run-commands",
