@@ -56,6 +56,11 @@ export default async function buildExecutor(
 
 	// Copy peerdeps of project to packaging dir
 	for (const [peerDepName, dep] of projectPackage.peerDependencies) {
+		if(!peerDepName.startsWith("@lionel")) {
+			continue;
+		}
+
+
 		// like /packaged/deps/@lionelhorn/utils
 		const peerDepCopyDistDirPath = `${projectPackagingDir}/deps/${peerDepName}/`
 		await mkdir(peerDepCopyDistDirPath, {recursive: true})

@@ -1,9 +1,6 @@
 {
   "name": "@lionelhorn/example-app",
   "version": "0.0.1",
-  "dependencies": {
-    "tslib": "^2.6.2"
-  },
   "type": "module",
   "main": "./src/index.js",
   "typings": "./src/index.d.ts",
@@ -12,6 +9,6 @@
     "exclude": []
   },
   "scripts": {
-    "run": "node --experimental-specifier-resolution=node ./src/app.js"
+    "start": "node --experimental-specifier-resolution=node ./src/app.js"
   }
 }

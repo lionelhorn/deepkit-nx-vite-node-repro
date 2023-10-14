@@ -5,6 +5,7 @@ import {LoggerInterface} from "@deepkit/logger";
 import {eventDispatcher} from "@deepkit/event";
 import {HttpControllerExample} from "@lionelhorn/utils";
 import {typeOf} from "@deepkit/type";
+import {HttpControllerExampleInSamePackage} from "./HttpControllerExampleInSamePackage";
 
 class Bootstrap {
 	constructor(private logger: LoggerInterface) {
@@ -13,15 +14,13 @@ class Bootstrap {
 	@eventDispatcher.listen(onServerMainBootstrapDone)
 	onMainBoostrap() {
 		this.logger.log('onServerMainBootstrapDone: onMainBoostrap');
-		console.log(typeOf<HttpControllerExample>())
 	}
 }
-
 
 const app = new App({
 	providers: [],
 	listeners: [Bootstrap],
-	controllers: [HttpControllerExample],
+	controllers: [HttpControllerExample, HttpControllerExampleInSamePackage],
 	imports: [
 		new FrameworkModule({debug: true}),
 		new ApiConsoleModule({
