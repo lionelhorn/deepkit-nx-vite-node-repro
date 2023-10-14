@@ -4,6 +4,11 @@
       "implementation": "./src/executors/package/executor",
       "schema": "./src/executors/package/schema.json",
       "description": "Tarball packager"
+    },
+    "install-dist-deps": {
+      "implementation": "./src/executors/install-dist-deps/executor",
+      "schema": "./src/executors/install-dist-deps/schema.json",
+      "description": "Install deps from tarballs"
     }
   }
 }

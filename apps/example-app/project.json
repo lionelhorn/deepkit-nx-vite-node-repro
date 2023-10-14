@@ -29,6 +29,16 @@
       },
       "dependsOn": ["build"]
     },
+    "install-dist-deps": {
+      "executor": "@lionelhorn/nx-tools:install-dist-deps",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/apps/example-app"
+      },
+      "dependsOn": ["build"]
+    },
     "serve-vite": {
       "executor": "nx:run-commands",
       "options": {
