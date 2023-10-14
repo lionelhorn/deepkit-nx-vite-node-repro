@@ -19,6 +19,16 @@
         "updateBuildableProjectDepsInPackageJson": true
       }
     },
+    "package": {
+      "executor": "@lionelhorn/nx-tools:package",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/apps/example-app"
+      },
+      "dependsOn": ["build"]
+    },
     "serve-vite": {
       "executor": "nx:run-commands",
       "options": {

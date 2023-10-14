@@ -1,0 +1,9 @@
+{
+  "name": "@lionelhorn/nx-tools",
+  "version": "0.0.1",
+  "dependencies": {
+    "@nx/devkit": "16.10.0"
+  },
+  "reflection": true,
+  "executors": "./executors.json"
+}

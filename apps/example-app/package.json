@@ -10,5 +10,8 @@
   "reflection": true,
   "reflectionOptions": {
     "exclude": []
+  },
+  "scripts": {
+    "run": "node --experimental-specifier-resolution=node ./src/app.js"
   }
 }
