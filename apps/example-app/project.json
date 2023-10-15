@@ -14,7 +14,8 @@
         "main": "apps/example-app/src/app.ts",
         "tsConfig": "apps/example-app/tsconfig.lib.json",
         "assets": [
-          "apps/example-app/*.md"
+          "apps/example-app/*.md",
+          "apps/example-app/Dockerfile"
         ],
         "updateBuildableProjectDepsInPackageJson": true
       }
