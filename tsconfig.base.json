@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@lionelhorn/utils": ["packages/utils/src/index.ts"],
+      "@lionelhorn/shared": ["packages/shared/src/index.ts"],
       "@lionelhorn/nx-tools": ["packages/nx-tools/src/index.ts"]
     }
   },
