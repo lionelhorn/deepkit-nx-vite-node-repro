@@ -7,13 +7,13 @@ import {
   PlusCircledIcon,
 } from "@radix-ui/react-icons"
 
-import { cn } from "@/lib/utils"
+import { cn } from "@n/lib/utils"
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
+} from "@n/components/ui/avatar"
+import { Button } from "@n/components/ui/button"
 import {
   Command,
   CommandEmpty,
@@ -22,7 +22,7 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from "@/components/ui/command"
+} from "@n/components/ui/command"
 import {
   Dialog,
   DialogContent,
@@ -31,21 +31,21 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+} from "@n/components/ui/dialog"
+import { Input } from "@n/components/ui/input"
+import { Label } from "@n/components/ui/label"
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover"
+} from "@n/components/ui/popover"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@n/components/ui/select"
 
 const groups = [
   {

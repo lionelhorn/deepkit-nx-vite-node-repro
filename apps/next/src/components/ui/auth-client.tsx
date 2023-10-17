@@ -1,5 +1,4 @@
 "use client";
-
 import {ClientSafeProvider, signIn, signOut} from "next-auth/react";
 import {FC, PropsWithChildren} from "react";
 import * as React from "react";

@@ -5,21 +5,21 @@ import {
 	CardDescription,
 	CardHeader,
 	CardTitle,
-} from "@/components/ui/card"
+} from "@n/components/ui/card"
 import {
 	Tabs,
 	TabsContent,
 	TabsList,
 	TabsTrigger,
-} from "@/components/ui/tabs"
-import {MainNav} from "@/components/ui/main-nav"
-import {Search} from "@/components/ui/search"
-import {UserNav} from "@/components/ui/user-nav"
+} from "@n/components/ui/tabs"
+import {MainNav} from "@n/components/ui/main-nav"
+import {Search} from "@n/components/ui/search"
+import {UserNav} from "@n/components/ui/user-nav"
 import {getServerSession} from "next-auth/next";
 import {redirect} from "next/navigation";
-import {UserSession} from "@/components/ui/user-session";
-import SessionProvider from "@/components/ui/SessionProvider";
-import {authOptions} from "@/app/api/auth/[...nextauth]/route";
+import {UserSession} from "@n/components/ui/user-session";
+import SessionProvider from "@n/components/ui/SessionProvider";
+import {authOptions} from "@n/auth";
 
 export const metadata: Metadata = {
 	title: "Dashboard",
@@ -197,6 +197,27 @@ export default async function DashboardPage() {
 									</CardHeader>
 									<CardContent>
 										{/*<RecentSales />*/}
+									</CardContent>
+								</Card>
+							</div>
+							<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
+								<Card className="col-span-4">
+									<CardHeader>
+										<CardTitle>Overview</CardTitle>
+									</CardHeader>
+									<CardContent className="pl-2">
+										{/*<Overview />*/}
+									</CardContent>
+								</Card>
+								<Card className="col-span-3">
+									<CardHeader>
+										<CardTitle>Deepkit</CardTitle>
+										<CardDescription>
+											Deepkit tests
+										</CardDescription>
+									</CardHeader>
+									<CardContent>
+										{/*<DeepkitView/>*/}
 									</CardContent>
 								</Card>
 							</div>

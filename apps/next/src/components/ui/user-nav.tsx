@@ -2,8 +2,8 @@ import {
 	Avatar,
 	AvatarFallback,
 	AvatarImage,
-} from "@/components/ui/avatar"
-import {Button} from "@/components/ui/button"
+} from "@n/components/ui/avatar"
+import {Button} from "@n/components/ui/button"
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -13,10 +13,10 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuShortcut,
 	DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@n/components/ui/dropdown-menu"
 import {getServerSession} from "next-auth/next";
-import {SignOutClient} from "@/components/ui/auth-client";
-import {authOptions} from "@/app/api/auth/[...nextauth]/route";
+import {SignOutClient} from "@n/components/ui/auth-client";
+import {authOptions} from "@n/auth";
 
 export async function UserNav() {
 	const session = await getServerSession(authOptions);

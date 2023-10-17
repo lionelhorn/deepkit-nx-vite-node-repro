@@ -1,9 +1,9 @@
-import {UserAuthForm} from "@/components/ui/user-auth-form"
+import {UserAuthForm} from "@n/components/ui/user-auth-form"
 import {getServerSession} from "next-auth/next";
 import {getProviders} from "next-auth/react";
 import {Metadata} from "next";
 import {redirect} from "next/navigation";
-import {authOptions} from "@/app/api/auth/[...nextauth]/route";
+import {authOptions} from "@n/auth";
 
 export const metadata: Metadata = {
 	title: "Authentication",
@@ -22,6 +22,7 @@ export default async function AuthenticationPage() {
 	}
 
 	const providers = await getProviders();
+
 
 	return (
 		<>
@@ -47,6 +48,7 @@ export default async function AuthenticationPage() {
 				</div>
 				<div className="lg:p-8">
 					<div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
+						{	/* @ts-ignore */}
 						<UserAuthForm providers={providers}/>
 					</div>
 				</div>
