@@ -7,4 +7,3 @@ export class HttpControllerExample {
 		return "world";
 	}
 }
-
