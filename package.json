@@ -53,7 +53,8 @@
     "rollup-plugin-visualizer" : "^5.9.2",
     "package-json-helper": "6.0.0",
     "glob": "10.3.10",
-    "execa": "^8.0.1"
+    "execa": "^8.0.1",
+    "ts-loader": "^9.5.0"
   },
   "reflection": "true",
   "pnpm": {
