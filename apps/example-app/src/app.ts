@@ -4,7 +4,7 @@ import {LoggerInterface} from "@deepkit/logger";
 import {eventDispatcher} from "@deepkit/event";
 import {
 	Config,
-	CORSHTTPListener, CurrentDatabase, RPCSecurity, TokenChecker, UserController,
+	CORSHTTPListener, CurrentDatabase, RPCSecurity, SessionsDatabase, TokenChecker, UserController,
 } from "@lionelhorn/shared";
 import {ApiConsoleModule} from "@deepkit/api-console-module";
 import {mkdir} from "node:fs/promises";
@@ -26,6 +26,7 @@ const app = new App({
 	config: Config,
 	providers: [
 		CurrentDatabase,
+		SessionsDatabase,
 		{provide: RpcKernelSecurity, useClass: RPCSecurity, scope: 'rpc'},
 		TokenChecker,
 		RPCSecurity

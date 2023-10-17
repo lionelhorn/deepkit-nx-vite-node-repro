@@ -1,6 +1,7 @@
 import {HttpMiddleware, HttpNotFoundError, HttpRequest, HttpResponse} from "@deepkit/http";
 import {RpcControllerAccess, RpcKernelSecurity, Session} from "@deepkit/rpc";
-import {CurrentDatabase, UserSession} from "@lionelhorn/shared";
+import {CurrentDatabase, SessionsDatabase, UserSession} from "@lionelhorn/shared";
+import {sql} from "@deepkit/sql";
 
 export class TokenChecker implements HttpMiddleware {
 	allowedURLs: string[] = [
@@ -30,12 +31,15 @@ export class TokenChecker implements HttpMiddleware {
 
 export class RPCSecurity extends RpcKernelSecurity {
 
-	constructor(protected database: CurrentDatabase) {
+	constructor(protected database: CurrentDatabase, protected sessionsDb: SessionsDatabase) {
 		super();
 	}
 
 	async hasControllerAccess(session: Session, controllerAccess: RpcControllerAccess): Promise<boolean> {
 		console.log('hasControllerAccess', session.token, session.username, controllerAccess.controllerName, controllerAccess.actionName);
+
+		const z = await this.sessionsDb.raw(sql`SELECT * FROM users`);
+		const ze = await z.find();
 		return true;
 	}
 
