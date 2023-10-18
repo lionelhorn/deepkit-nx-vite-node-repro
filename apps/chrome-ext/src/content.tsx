@@ -4,7 +4,9 @@ import type { PlasmoCSConfig } from "plasmo"
 import { CountButton } from "@ce/features/count-button"
 
 export const config: PlasmoCSConfig = {
-  matches: ["https://www.plasmo.com/*"]
+  matches: [
+    "https://www.plasmo.com/*"
+  ]
 }
 
 export const getStyle = () => {

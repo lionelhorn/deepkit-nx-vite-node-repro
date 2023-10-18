@@ -19,7 +19,7 @@ export class SessionsDatabase extends Database{
 	}
 }
 
-export async function getSessionWithRpcTokenFromSessionId(sessionId: string) {
+export async function getSessionWithRpcTokenFromNextSessionId(sessionId: string) {
 	const db = new SessionsDatabase();
 
 	const sessionsQuery = await db.raw(sql`SELECT * FROM sessions WHERE "sessionToken" = ${sessionId}`);
@@ -35,4 +35,18 @@ export async function getSessionWithRpcTokenFromSessionId(sessionId: string) {
 	const sessionUpdated = await updatesSessionQuery.findOneOrUndefined();
 
 	return sessionUpdated;
+}
+
+export async function getEmailFromRpcToken(token: string) {
+	const db = new SessionsDatabase();
+
+	const sessionsQuery = await db.raw(sql`SELECT * FROM sessions WHERE "rpcToken" = ${token}`);
+	const session = await sessionsQuery.findOneOrUndefined();
+
+	if(!session) {
+		return null;
+	}
+
+	const user = await db.raw(sql`SELECT * FROM users WHERE "id" = ${session.userId}`).findOneOrUndefined();
+	return user?.email ?? null;
 }

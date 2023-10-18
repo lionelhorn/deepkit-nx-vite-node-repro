@@ -46,7 +46,8 @@ export const authOptions = {
 	callbacks: {
 		async signIn({user, account, profile, email, credentials}) {
 			console.log(user);
-			return true;
+			// return true;
+			return !!user
 		},
 		async session({session, token, user, ...rest}) {
 			// // Send properties to the client, like an access_token and user id from a provider.

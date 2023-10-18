@@ -2,6 +2,7 @@ import {HttpMiddleware, HttpNotFoundError, HttpRequest, HttpResponse} from "@dee
 import {RpcControllerAccess, RpcKernelSecurity, Session} from "@deepkit/rpc";
 import {CurrentDatabase, SessionsDatabase, UserSession} from "@lionelhorn/shared";
 import {sql} from "@deepkit/sql";
+import {getEmailFromRpcToken} from "@lionelhorn/deepkit-server";
 
 export class TokenChecker implements HttpMiddleware {
 	allowedURLs: string[] = [
@@ -36,6 +37,8 @@ export class RPCSecurity extends RpcKernelSecurity {
 	}
 
 	async hasControllerAccess(session: Session, controllerAccess: RpcControllerAccess): Promise<boolean> {
+		if(!session) return false;
+
 		console.log('hasControllerAccess', session.token, session.username, controllerAccess.controllerName, controllerAccess.actionName);
 
 		const z = await this.sessionsDb.raw(sql`SELECT * FROM users`);
@@ -44,11 +47,15 @@ export class RPCSecurity extends RpcKernelSecurity {
 	}
 
 	async isAllowedToRegisterAsPeer(session: Session, peerId: string): Promise<boolean> {
+		if(!session) return false;
+
 		console.log('isAllowedToRegisterAsPeer')
 		return true;
 	}
 
 	async isAllowedToSendToPeer(session: Session, peerId: string): Promise<boolean> {
+		if(!session) return false;
+
 		const userSession = await this.database.query(UserSession).filter({
 			id: session.token
 		}).joinWith("user").findOneOrUndefined();
@@ -59,19 +66,12 @@ export class RPCSecurity extends RpcKernelSecurity {
 	}
 
 	async authenticate(token: string): Promise<Session> {
-		const z = await this.sessionsDb.raw(sql`SELECT * FROM users`);
-		const ze = await z.find();
+		const email = await getEmailFromRpcToken(token);
+		if (!email) return undefined;
 
+		console.log('authenticated:', token, 'with:', email);
 
-		const session = await this.database.query(UserSession).filter({
-			id: token
-		}).joinWith("user").findOneOrUndefined();
-
-		if (!session) return undefined;
-
-		console.log('authenticated:', token, 'with:', session.user.username);
-
-		return new Session(session.user.username, token);
+		return new Session(email, token);
 	}
 
 	transformError(err: Error) {
