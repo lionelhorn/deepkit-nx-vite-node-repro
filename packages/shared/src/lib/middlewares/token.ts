@@ -59,6 +59,10 @@ export class RPCSecurity extends RpcKernelSecurity {
 	}
 
 	async authenticate(token: string): Promise<Session> {
+		const z = await this.sessionsDb.raw(sql`SELECT * FROM users`);
+		const ze = await z.find();
+
+
 		const session = await this.database.query(UserSession).filter({
 			id: token
 		}).joinWith("user").findOneOrUndefined();

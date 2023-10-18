@@ -4,9 +4,8 @@ import {LoggerInterface} from "@deepkit/logger";
 import {eventDispatcher} from "@deepkit/event";
 import {
 	Config,
-	CORSHTTPListener, CurrentDatabase, RPCSecurity, SessionsDatabase, TokenChecker, UserController,
+	CORSHTTPListener, CurrentDatabase, HttpControllerExample, RPCSecurity, SessionsDatabase, TokenChecker, UserController,
 } from "@lionelhorn/shared";
-import {ApiConsoleModule} from "@deepkit/api-console-module";
 import {mkdir} from "node:fs/promises";
 import {RpcKernelSecurity} from "@deepkit/rpc";
 import {httpMiddleware} from "@deepkit/http";
@@ -29,14 +28,15 @@ const app = new App({
 		SessionsDatabase,
 		{provide: RpcKernelSecurity, useClass: RPCSecurity, scope: 'rpc'},
 		TokenChecker,
-		RPCSecurity
+		// RPCSecurity
 	],
 	listeners: [
 		Bootstrap,
 		CORSHTTPListener,
 	],
 	controllers: [
-		UserController
+		UserController,
+		HttpControllerExample
 	],
 	middlewares: [
 		httpMiddleware.for(TokenChecker),

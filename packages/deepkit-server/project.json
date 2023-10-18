@@ -1,0 +1,19 @@
+{
+  "name": "deepkit-server",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/deepkit-server/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/deepkit-server",
+        "main": "packages/deepkit-server/src/index.ts",
+        "tsConfig": "packages/deepkit-server/tsconfig.lib.json",
+        "assets": ["packages/deepkit-server/*.md"]
+      }
+    }
+  },
+  "tags": []
+}

@@ -1,0 +1,10 @@
+{
+  "name": "@lionelhorn/shared",
+  "version": "0.0.1",
+  "dependencies": {  },
+  "reflection": true,
+  "type": "module",
+  "peerDependencies": {
+    "bcrypt": "^5.1.1"
+  }
+}
