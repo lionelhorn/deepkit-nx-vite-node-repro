@@ -1,7 +1,7 @@
-import cssText from "data-text:~style.css"
+import cssText from "data-text:@ce/style.css"
 import type { PlasmoCSConfig } from "plasmo"
 
-import { CountButton } from "~features/count-button"
+import { CountButton } from "@ce/features/count-button"
 
 export const config: PlasmoCSConfig = {
   matches: ["https://www.plasmo.com/*"]

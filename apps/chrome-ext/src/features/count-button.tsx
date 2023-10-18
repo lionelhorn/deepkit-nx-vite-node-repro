@@ -5,7 +5,9 @@ export const CountButton = () => {
 
   return (
     <button
-      onClick={() => increase()}
+      onClick={async () => {
+        increase()
+      }}
       type="button"
       className="plasmo-flex plasmo-flex-row plasmo-items-center plasmo-px-4 plasmo-py-2 plasmo-text-sm plasmo-rounded-lg plasmo-transition-all plasmo-border-none
       plasmo-shadow-lg hover:plasmo-shadow-md
