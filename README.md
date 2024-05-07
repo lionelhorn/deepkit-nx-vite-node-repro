@@ -9,7 +9,7 @@ pnpm install
 ```
 
 ```shell
-nx run example-app:serve-vite
+nx run deepkit-app:serve-vite
 ```
 
 For ref:

@@ -1,7 +1,7 @@
 {
-  "name": "example-app",
+  "name": "deepkit-app",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/example-app/src",
+  "sourceRoot": "apps/deepkit-app/src",
   "projectType": "application",
   "targets": {
     "build": {
@@ -10,12 +10,12 @@
         "{options.outputPath}"
       ],
       "options": {
-        "outputPath": "dist/apps/example-app",
-        "main": "apps/example-app/src/app.ts",
-        "tsConfig": "apps/example-app/tsconfig.lib.json",
+        "outputPath": "dist/apps/deepkit-app",
+        "main": "apps/deepkit-app/src/app.ts",
+        "tsConfig": "apps/deepkit-app/tsconfig.lib.json",
         "assets": [
-          "apps/example-app/*.md",
-          "apps/example-app/Dockerfile"
+          "apps/deepkit-app/*.md",
+          "apps/deepkit-app/Dockerfile"
         ],
         "updateBuildableProjectDepsInPackageJson": true
       }
@@ -26,8 +26,8 @@
         "{options.outputPath}"
       ],
       "options": {
-        "outputPath": "dist/apps/example-app",
-        "packagerOutputPath": "packaged/apps/example-app"
+        "outputPath": "dist/apps/deepkit-app",
+        "packagerOutputPath": "packaged/apps/deepkit-app"
       },
       "dependsOn": ["build"]
     },
@@ -37,14 +37,14 @@
         "{options.outputPath}"
       ],
       "options": {
-        "outputPath": "dist/apps/example-app"
+        "outputPath": "dist/apps/deepkit-app"
       },
       "dependsOn": ["package"]
     },
     "serve-vite": {
       "executor": "nx:run-commands",
       "options": {
-        "cwd": "apps/example-app",
+        "cwd": "apps/deepkit-app",
         "command": "vite-node --config=vite.config.ts --root . ./src/app.ts"
       }
     }

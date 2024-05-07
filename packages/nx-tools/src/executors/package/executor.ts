@@ -68,7 +68,7 @@ export default async function buildExecutor(
 		const {path, packageInfos} = allPackages.get(peerDepName);
 		console.log(`Copying ${peerDepName} to ${peerDepCopyDistDirPath}`);
 
-		// like dist\packages\utils ==> packaged/apps/example-app/deps/@lionelhorn/utils
+		// like dist\packages\utils ==> packaged/apps/deepkit-app/deps/@lionelhorn/utils
 		await cp(dirname(path), peerDepCopyDistDirPath, {recursive: true})
 
 		// Adjust project package.json to link to local copy of dep

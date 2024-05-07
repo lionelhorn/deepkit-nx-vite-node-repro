@@ -1,5 +1,5 @@
 {
-  "name": "@lionelhorn/example-app",
+  "name": "@lionelhorn/deepkit-app",
   "version": "0.0.1",
   "type": "module",
   "main": "./src/index.js",
