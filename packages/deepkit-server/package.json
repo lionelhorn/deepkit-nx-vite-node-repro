@@ -1,10 +1,14 @@
 {
-  "name": "@lionelhorn/shared",
+  "name": "@lionelhorn/deepkit-server",
   "version": "0.0.1",
   "dependencies": {  },
   "reflection": true,
   "type": "module",
   "peerDependencies": {
     "bcrypt": "^5.1.1"
+  },
+  "exports": {
+    ".": "./src/index.js",
+    "./lib/*": "./src/lib/*"
   }
 }

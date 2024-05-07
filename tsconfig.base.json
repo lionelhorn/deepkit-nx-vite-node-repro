@@ -20,7 +20,9 @@
       "@lionelhorn/utils": ["dist/packages/utils/src"],
       "@lionelhorn/shared": ["packages/shared/src/index.ts"],
       "@lionelhorn/deepkit-client": ["packages/deepkit-client/src/index.ts"],
+      "@lionelhorn/deepkit-client/*": ["packages/deepkit-client/src/lib/*"],
       "@lionelhorn/deepkit-server": ["packages/deepkit-server/src/index.ts"],
+      "@lionelhorn/deepkit-server/*": ["packages/deepkit-server/src/lib/*"],
       "@lionelhorn/nx-tools": ["packages/nx-tools/src/index.ts"]
     }
   },

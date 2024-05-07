@@ -7,6 +7,5 @@
       "path": "./tsconfig.lib.json"
     }
   ],
-  "reflection": true,
-  "experimentalDecorators": true
+  "reflection": true
 }
