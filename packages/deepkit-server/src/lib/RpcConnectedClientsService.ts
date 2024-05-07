@@ -23,7 +23,12 @@ export class RpcConnectedClientsService {
         console.log(`Calling downloadBig on client`)
 
         const controller = connection.controller<RpcClientTestController>("RpcClientTestController");
-        const res = await controller.downloadBig(150000);
+
+        // following line never returns
+        const res = await controller.downloadBig(105000);
+
+        // works
+        // const res = await controller.downloadBig(90000);
 
         console.log(`downloadBig res`, res);
       })()

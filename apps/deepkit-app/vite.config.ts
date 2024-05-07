@@ -8,10 +8,6 @@ export default defineConfig(({mode}) => {
 
   return {
     build: {
-      // lib: {
-      //   entry: "./src/app.ts",
-      //   name : "bundle"
-      // },
       modulePreload: false,
       // watch: true,
       minify: false,
@@ -46,9 +42,6 @@ export default defineConfig(({mode}) => {
         }
       }),
       nxViteTsPaths()
-      // !ssrBuild && splitVendorChunkPlugin(),
-      // !ssrBuild && liveReload({ delay: 500 }),
-      // visualizer() as PluginOption,
     ],
   }
 });

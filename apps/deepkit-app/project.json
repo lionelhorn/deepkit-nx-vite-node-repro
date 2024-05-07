@@ -4,43 +4,6 @@
   "sourceRoot": "apps/deepkit-app/src",
   "projectType": "application",
   "targets": {
-    "build": {
-      "executor": "@nx/js:tsc",
-      "outputs": [
-        "{options.outputPath}"
-      ],
-      "options": {
-        "outputPath": "dist/apps/deepkit-app",
-        "main": "apps/deepkit-app/src/app.ts",
-        "tsConfig": "apps/deepkit-app/tsconfig.lib.json",
-        "assets": [
-          "apps/deepkit-app/*.md",
-          "apps/deepkit-app/Dockerfile"
-        ],
-        "updateBuildableProjectDepsInPackageJson": true
-      }
-    },
-    "package": {
-      "executor": "@lionelhorn/nx-tools:package",
-      "outputs": [
-        "{options.outputPath}"
-      ],
-      "options": {
-        "outputPath": "dist/apps/deepkit-app",
-        "packagerOutputPath": "packaged/apps/deepkit-app"
-      },
-      "dependsOn": ["build"]
-    },
-    "install-dist-deps": {
-      "executor": "@lionelhorn/nx-tools:install-dist-deps",
-      "outputs": [
-        "{options.outputPath}"
-      ],
-      "options": {
-        "outputPath": "dist/apps/deepkit-app"
-      },
-      "dependsOn": ["package"]
-    },
     "serve-vite": {
       "executor": "nx:run-commands",
       "options": {

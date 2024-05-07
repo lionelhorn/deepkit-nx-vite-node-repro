@@ -1,7 +1,7 @@
 import { createRoot } from "react-dom/client";
 import * as React from "react";
 import {RpcWebSocketClient} from "@deepkit/rpc";
-import {RpcClientTestController} from "@lionelhorn/deepkit-client/RpcClientTestController.js";
+import {RpcClientTestController} from "@lionelhorn/deepkit-client";
 
 const rootEl = document.getElementById("react-root");
 if (!rootEl) throw new Error("No react-root element found in the DOM");

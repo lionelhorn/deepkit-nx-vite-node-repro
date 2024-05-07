@@ -1,7 +1,0 @@
-{
-  "name": "@lionelhorn/utils",
-  "version": "0.0.1",
-  "dependencies": {  },
-  "reflection": true,
-  "type": "module"
-}
